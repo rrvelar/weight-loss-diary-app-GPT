@@ -74,23 +74,24 @@ const Diary = () => {
 
       <button onClick={loadEntries} className="mt-4 underline text-blue-600">📂 Load My Entries</button>
       <div className="mt-4 space-y-2">
-        {entries.map((entry, idx) => {
-  const ts = Number(entry.timestamp);
-  const weight = Number(entry.weightKg);
-  const steps = Number(entry.steps);
-  const calIn = Number(entry.caloriesIn);
-  const calOut = Number(entry.caloriesOut);
-  const note = entry.note;
+        {entries.map((entry: any, idx: number) => {
+  const ts = entry.timestamp ? Number(entry.timestamp) : 0;
+  const weight = entry.weightKg ? Number(entry.weightKg) : 0;
+  const steps = entry.steps ? Number(entry.steps) : 0;
+  const calIn = entry.caloriesIn ? Number(entry.caloriesIn) : 0;
+  const calOut = entry.caloriesOut ? Number(entry.caloriesOut) : 0;
+  const note = entry.note || "";
 
   return (
     <div key={idx} className="p-2 border rounded mb-2">
-      📅 {isNaN(ts) ? "?" : new Date(ts * 1000).toLocaleString()}<br/>
+      📅 {ts ? new Date(ts * 1000).toLocaleString() : "?"}<br/>
       🏋️ {weight} kg | 🚶 {steps} steps<br/>
       🔥 {calIn} kcal in / {calOut} out<br/>
       📝 {note}
     </div>
   );
 })}
+
 
       </div>
     </div>
