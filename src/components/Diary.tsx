@@ -41,9 +41,20 @@ const Diary = () => {
   };
 
   const loadEntries = async () => {
-    const result = await contract.getMyEntries();
-    setEntries(result);
-  };
+  const result = await contract.getMyEntries();
+
+  // Преобразуем каждый элемент в читаемый объект
+  const parsed = result.map((entry: any) => ({
+    timestamp: Number(entry[0]),
+    weightKg: Number(entry[1]),
+    steps: Number(entry[2]),
+    caloriesIn: Number(entry[3]),
+    caloriesOut: Number(entry[4]),
+    note: entry[5],
+  }));
+
+  setEntries(parsed);
+};
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
